@@ -9,51 +9,47 @@ const uuid = require('uuid');
 
 //schedule variables
 const schedule = [];
-const startDate = moment('2023-04-01');
-const endDate = moment('2023-08-01');
+const startDate = moment('2023-04-01T07:30', moment.ISO_8601);
+const endDate = moment('2023-06-01T07:30', moment.ISO_8601);
 const recurringInterval = 9; //days
 
 //day shift
-const dayStartTime = moment('07:30', 'HH:mm');
+const dayStartTime = moment(startDate).clone();
 const dayEndTime = moment(dayStartTime).clone().add(12, 'hours');
 
 //night shift
-const nightStartTime = moment('19:30', 'HH:mm');
+const nightStartTime = moment(startDate).clone().add(12, 'hours');
 const nightEndTime = moment(nightStartTime).clone().add(12, 'hours');
 
-function createShiftBlock(startDate, dayStartTime, dayEndTime, nightStartTime, nightEndTime, line, employee_id) {
+function createShiftBlock(dayStartTime, dayEndTime, nightStartTime, nightEndTime, line, employee_id) {
   const day1 = {
     id: uuid.v4(),
     description: `${line} Day Shift #1`,
-    start_time: dayStartTime.format('HH:mm'),
-    end_time: dayEndTime.format('HH:mm'),
-    start_date: startDate.format('MMM-DD-YYYY'),
+    start_time: dayStartTime.format('YYYY-MM-DDTHH:mm'),
+    end_time: dayEndTime.format('YYYY-MM-DDTHH:mm'),
     employee_id
   };
   const day2 = {
     id: uuid.v4(),
     description: `${line} Day Shift #2`,
-    start_time: dayStartTime.format('HH:mm'),
-    end_time: dayEndTime.format('HH:mm'),
-    start_date: startDate.clone().add(1, 'days').format('MMM-DD-YYYY'),
+    start_time: dayStartTime.add(1,'days').format('YYYY-MM-DDTHH:mm'),
+    end_time: dayEndTime.format('YYYY-MM-DDTHH:mm'),
     employee_id
 
   };
   const night1 = {
     id: uuid.v4(),
     description: `${line} Night Shift #1`,
-    start_time: nightStartTime.format('HH:mm'),
-    end_time: nightEndTime.format('HH:mm'),
-    start_date: startDate.clone().add(2, 'days').format('MMM-DD-YYYY'),
+    start_time: nightStartTime.add(2,'days').format('YYYY-MM-DDTHH:mm'),
+    end_time: nightEndTime.format('YYYY-MM-DDTHH:mm'),
     employee_id
 
   };
   const night2 = {
     id: uuid.v4(),
     description: `${line} Night Shift #2`,
-    start_time: nightStartTime.format('HH:mm'),
-    end_time: nightEndTime.format('HH:mm'),
-    start_date: startDate.clone().add(3, 'days').format('MMM-DD-YYYY'),
+    start_time: nightStartTime.add(3,'days').format('YYYY-MM-DDTHH:mm'),
+    end_time: nightEndTime.format('YYYY-MM-DDTHH:mm'),
     employee_id
 
   };
@@ -67,11 +63,11 @@ for (let date = startDate; date < endDate; date.add(recurringInterval, 'days')) 
 
 exports.seed = async function (knex) {
   // Deletes ALL existing entries
-  return knex('shift')
+  return knex('schedule')
     .del()
     //then add these ones
     .then(() => {
-      return knex('shift').insert(
+      return knex('schedule').insert(
         schedule)
     })
 };
