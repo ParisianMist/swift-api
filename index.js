@@ -17,8 +17,10 @@ app.get('/', (req, res) => {
 });
 
 //register route
-const employeesRoutes = require('./routes/route_employees')
-app.use('/employees', employeesRoutes)
+const employeesRoutes = require('./routes/route_employees');
+const shiftRoutes = require('./routes/route_shift');
+app.use('/employees', employeesRoutes);
+app.use('/shift', shiftRoutes);
 
 //and we're live
 app.listen(PORT, () => {

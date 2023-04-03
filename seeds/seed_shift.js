@@ -2,68 +2,8 @@
  * @param { import("knex").Knex } knex
  * @returns { Promise<void> } 
  */
-
 //tools
-const moment = require('moment');
 const uuid = require('uuid');
-
-//schedule variables
-const schedule = [];
-const startDate = moment('2023-04-01');
-const endDate = moment('2023-08-01');
-const recurringInterval = 9; //days
-
-//day shift
-const dayStartTime = moment('07:30', 'HH:mm');
-const dayEndTime = moment(dayStartTime).clone().add(12, 'hours');
-
-//night shift
-const nightStartTime = moment('19:30', 'HH:mm');
-const nightEndTime = moment(nightStartTime).clone().add(12, 'hours');
-
-function createShiftBlock(startDate, dayStartTime, dayEndTime, nightStartTime, nightEndTime, line, employee_id) {
-  const day1 = {
-    id: uuid.v4(),
-    description: `${line} Day Shift #1`,
-    start_time: dayStartTime.format('HH:mm'),
-    end_time: dayEndTime.format('HH:mm'),
-    start_date: startDate.format('MMM-DD-YYYY'),
-    employee_id
-  };
-  const day2 = {
-    id: uuid.v4(),
-    description: `${line} Day Shift #2`,
-    start_time: dayStartTime.format('HH:mm'),
-    end_time: dayEndTime.format('HH:mm'),
-    start_date: startDate.clone().add(1, 'days').format('MMM-DD-YYYY'),
-    employee_id
-
-  };
-  const night1 = {
-    id: uuid.v4(),
-    description: `${line} Night Shift #1`,
-    start_time: nightStartTime.format('HH:mm'),
-    end_time: nightEndTime.format('HH:mm'),
-    start_date: startDate.clone().add(2, 'days').format('MMM-DD-YYYY'),
-    employee_id
-
-  };
-  const night2 = {
-    id: uuid.v4(),
-    description: `${line} Night Shift #2`,
-    start_time: nightStartTime.format('HH:mm'),
-    end_time: nightEndTime.format('HH:mm'),
-    start_date: startDate.clone().add(3, 'days').format('MMM-DD-YYYY'),
-    employee_id
-
-  };
-  return [day1, day2, night1, night2];
-}
-
-for (let date = startDate; date < endDate; date.add(recurringInterval, 'days')) {
-  const pinkBlock = createShiftBlock(date, dayStartTime, dayEndTime, nightStartTime, nightEndTime, 'Pink', '0201cf73-8a86-4358-b232-2abaa23f09af')
-  schedule.push(...pinkBlock);
-}
 
 exports.seed = async function (knex) {
   // Deletes ALL existing entries
@@ -72,6 +12,118 @@ exports.seed = async function (knex) {
     //then add these ones
     .then(() => {
       return knex('shift').insert(
-        schedule)
+        [//PINK
+          {
+            'id': uuid.v4(),
+            'description': 'Pink Day #1',
+            'start_time': '2023-04-01T07:30',
+            'end_time': '2023-04-01T19:30',
+            'employee_id': '3db6dc51-b461-4fa4-a6e4-b1ff352221c5'
+          },
+          {
+            'id': uuid.v4(),
+            'description': 'Pink Day #2',
+            'start_time': '2023-04-02T07:30',
+            'end_time': '2023-04-02T19:30',
+            'employee_id': '3db6dc51-b461-4fa4-a6e4-b1ff352221c5'
+          },
+          {
+            'id': uuid.v4(),
+            'description': 'Pink Night #1',
+            'start_time': '2023-04-03T19:30',
+            'end_time': '2023-04-04T07:30',
+            'employee_id': '3db6dc51-b461-4fa4-a6e4-b1ff352221c5'
+          },
+          {
+            'id': uuid.v4(),
+            'description': 'Pink Night #2',
+            'start_time': '2023-04-04T19:30',
+            'end_time': '2023-04-05T07:30',
+            'employee_id': '3db6dc51-b461-4fa4-a6e4-b1ff352221c5'
+          },
+          //green
+          {
+            'id': uuid.v4(),
+            'description': 'Green Day #1',
+            'start_time': '2023-04-03T07:30',
+            'end_time': '2023-04-03T19:30',
+            'employee_id': '79e02eb5-17c0-4dd9-bf55-aec03434812c'
+          },
+          {
+            'id': uuid.v4(),
+            'description': 'Green Day #2',
+            'start_time': '2023-04-04T07:30',
+            'end_time': '2023-04-04T19:30',
+            'employee_id': '79e02eb5-17c0-4dd9-bf55-aec03434812c'
+
+          },
+          {
+            'id': uuid.v4(),
+            'description': 'Green Night #1',
+            'start_time': '2023-04-05T19:30',
+            'end_time': '2023-04-06T07:30',
+            'employee_id': '79e02eb5-17c0-4dd9-bf55-aec03434812c'
+          },
+          {
+            'id': uuid.v4(),
+            'description': 'Green Night #2',
+            'start_time': '2023-04-06T19:30',
+            'end_time': '2023-04-07T07:30',
+            'employee_id': '79e02eb5-17c0-4dd9-bf55-aec03434812c'
+
+          },
+          //PURPLE
+          {
+            'id': uuid.v4(),
+            'description': 'Purple Day #1',
+            'start_time': '2023-04-05T07:30',
+            'end_time': '2023-04-05T19:30',
+            'employee_id': '4c7e6819-a91a-45b2-a454-f931e4a7cce3'
+          },
+          {
+            'id': uuid.v4(),
+            'description': 'Purple Day #2',
+            'start_time': '2023-04-06T07:30',
+            'end_time': '2023-04-06T19:30',
+            'employee_id': '4c7e6819-a91a-45b2-a454-f931e4a7cce3'
+          },
+          {
+            'id': uuid.v4(),
+            'description': 'Purple Night #1',
+            'start_time': '2023-04-07T19:30',
+            'end_time': '2023-04-08T07:30',
+            'employee_id': '4c7e6819-a91a-45b2-a454-f931e4a7cce3'
+          },
+          {
+            'id': uuid.v4(),
+            'description': 'Purple Night #2',
+            'start_time': '2023-04-08T19:30',
+            'end_time': '2023-04-09T07:30',
+            'employee_id': '4c7e6819-a91a-45b2-a454-f931e4a7cce3'
+          },
+          //ORANGE
+          {
+            'id': uuid.v4(),
+            'description': 'Orange Day #1',
+            'start_time': '2023-04-07T07:30',
+            'end_time': '2023-04-07T19:30',
+            'employee_id': 'd5c4daa3-c726-426a-aa98-fb40f3fba816'
+          },
+          //BLUE
+          {
+            'id': uuid.v4(),
+            'description': 'Purple Night #1',
+            'start_time': '2023-04-01T19:30',
+            'end_time': '2023-04-02T07:30',
+            'employee_id': 'ca3827f0-375a-4891-aaa5-f5e8a5bad225'
+          },
+          {
+            'id': uuid.v4(),
+            'description': 'Purple Night #2',
+            'start_time': '2023-04-02T19:30',
+            'end_time': '2023-04-03T07:30',
+            'employee_id': 'ca3827f0-375a-4891-aaa5-f5e8a5bad225'
+          },]
+      )
     })
 };
