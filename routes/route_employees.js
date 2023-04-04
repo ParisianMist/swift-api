@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { allEmployees, oneEmployee } = require('../controllers/employeesController')
+const { allEmployees, oneEmployee, employeeLogin } = require('../controllers/employeesController')
 
 router.use(express.json())
 
