@@ -42,11 +42,12 @@ exports.oneEmployee = (req, res) => {
 exports.getEmployeeSchedule = (req, res) => {
     // get token from request headers
     const token = req.headers.authorization;
-    const splitToken = token.split(' ')[0];
+    const splitToken = token.split(' ')[1];
 
     // verify & decode JWT
     jwt.verify(splitToken, secretKey, (err, decoded) => {
         const employeeID = decoded.id
+        console.log(employeeID)
         knex('employees')
             .select(
                 'employees.id as employee_id',
@@ -64,8 +65,8 @@ exports.getEmployeeSchedule = (req, res) => {
                 }
                 else {
                     const result = data.map(shift => ({
-                        id: shift.shift_id,
-                        description: shift.description,
+                        shiftID: shift.shift_id,
+                        title: shift.description,
                         start: shift.start_time,
                         end: shift.end_time,
                         employeeID: shift.employee_id,
