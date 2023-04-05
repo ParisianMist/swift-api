@@ -17,11 +17,11 @@ exports.employeeLogin = (req, res) => {
             );
             if (!employee) {
                 return res.status(401).send('Invalid email or password');
-            } 
+            }
             //send token back in response body
             else {
-                const token = jwt.sign({ email: employee.email }, secretKey);
-                res.status(200).json({ token });
+                const token = jwt.sign({ id: employee.id }, secretKey);
+                res.status(200).json({ token: token });
             }
         })
         .catch((err) => {
