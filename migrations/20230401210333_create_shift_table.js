@@ -14,7 +14,9 @@ exports.up = function (knex) {
             .onUpdate('CASCADE')
             .onDelete('CASCADE')
             .notNullable();
-        table.timestamp(true, true); //to set created, updated timestamps
+        table.timestamps(true, true); //to set created, updated timestamps
+        table.boolean('up_for_grabs').defaultTo(false);
+        table.boolean('swap_status').defaultTo(false);
     });
 };
 
