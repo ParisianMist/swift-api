@@ -1,5 +1,7 @@
+//tools
 const knex = require("knex")(require('../knexfile'))
 const jwt = require('jsonwebtoken')
+
 //secret key
 const secretKey = process.env.SECRET_KEY;
 
