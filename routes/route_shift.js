@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { allShifts, oneShift } = require('../controllers/shiftController')
+const { allShifts, oneShift,postShift } = require('../controllers/shiftController')
 
 router.use(express.json())
 
@@ -11,5 +11,6 @@ router
 router
     .route('/:id')
     .get(oneShift)
+    .patch(postShift)
 
 module.exports = router

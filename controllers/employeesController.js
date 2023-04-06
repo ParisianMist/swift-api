@@ -56,6 +56,7 @@ exports.getEmployeeSchedule = (req, res) => {
                 'shift.description',
                 'shift.start_time',
                 'shift.end_time',
+                'shift.up_for_grabs'
             )
             .join('shift', 'shift.employee_id', 'employees.id')
             .where('shift.employee_id', employeeID)
@@ -71,6 +72,7 @@ exports.getEmployeeSchedule = (req, res) => {
                         end: shift.end_time,
                         employeeID: shift.employee_id,
                         employeeName: shift.name,
+                        upForGrabs:shift.up_for_grabs,
 
                     }))
                     res.status(200).send(result);

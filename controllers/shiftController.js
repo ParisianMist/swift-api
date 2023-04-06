@@ -10,7 +10,7 @@ exports.allShifts = (_req, res) => {
         })
 }
 
-exports.oneShift = (_req, res) => {
+exports.oneShift = (req, res) => {
     knex('shift')
         .then((data) => {
             if (!data.length) {
@@ -29,5 +29,31 @@ exports.oneShift = (_req, res) => {
         })
         .catch(() => {
             res.status(400).send('Could not retrieve shift information')
+        })
+}
+
+exports.postShift = (req, res) => {
+    const { id } = req.params;
+
+    knex('shift')
+        .select('*')
+        .where({ id })
+        .then((row) => {
+            if (row.length === 0) {
+                return res.status(404).send(`shift at ${id} not found`)
+            }
+
+            knex('shift')
+                .where({ id })
+                .update(req.body)
+                .then((data) => {
+                    res.status(200).send(data[0])
+                })
+                .catch((err) => {
+                    res.status(400).console.error(err)
+                })
+        })
+        .catch((err) => {
+            res.status(400).console.error(err)
         })
 }
