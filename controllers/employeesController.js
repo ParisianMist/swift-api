@@ -49,7 +49,7 @@ exports.getEmployeeSchedule = (req, res) => {
     // verify & decode JWT
     jwt.verify(splitToken, secretKey, (err, decoded) => {
         const employeeID = decoded.id
-        console.log(employeeID)
+        // console.log(employeeID)
         knex('employees')
             .select(
                 'employees.id as employee_id',

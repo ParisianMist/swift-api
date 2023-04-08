@@ -112,14 +112,14 @@ exports.seed = async function (knex) {
           //BLUE
           {
             'id': uuid.v4(),
-            'description': 'Purple Night #1',
+            'description': 'Blue Night #1',
             'start_time': '2023-04-01T19:30',
             'end_time': '2023-04-02T07:30',
             'employee_id': 'ca3827f0-375a-4891-aaa5-f5e8a5bad225'
           },
           {
             'id': uuid.v4(),
-            'description': 'Purple Night #2',
+            'description': 'Blue Night #2',
             'start_time': '2023-04-02T19:30',
             'end_time': '2023-04-03T07:30',
             'employee_id': 'ca3827f0-375a-4891-aaa5-f5e8a5bad225'
